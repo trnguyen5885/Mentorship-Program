@@ -1,1 +1,71 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.Scanner;
 
+public class Main {
+    static Scanner scanner = new Scanner(System.in);
+    static Random random = new Random();
+
+    public static void main(String[] args) {
+        System.out.print("Enter the size of the array: ");
+        int n = readtInteger();
+        int[] arr = new int[n];
+        generateArray(arr);
+        System.out.print("Elements of the array: ");
+        printArray(arr);
+        
+        findAndPrintMostFrequentElement(arr);
+    }
+
+    private static void findAndPrintMostFrequentElement(int[] arr) {
+        Map<Integer,Integer> frequencyMap = new HashMap<>();
+        for(int num : arr) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+
+        }
+
+        int maxCount = frequencyMap.get(arr[0]);
+
+        for(Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            if(entry.getValue() > maxCount) {
+                maxCount = entry.getValue();
+            }
+        }
+
+        System.out.println("The most frequent element(s) of the array: ");
+
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            if (entry.getValue() == maxCount) {
+                System.out.print(entry.getKey() + " ");
+            } }
+
+        
+    }
+
+    private static void printArray(int[] arr) {
+        for(int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.print("\n");
+    }
+
+    private static void generateArray(int[] arr) {
+        int n = arr.length;
+        for(int i = 0; i < n; i++) {
+            arr[i] = random.nextInt(10);
+        }
+    }
+
+    private static int readtInteger() {
+        while (!scanner.hasNextInt()) {
+            System.out.print("Invalid input, Please enter an integer: ");
+            scanner.nextLine();
+        }
+
+        return scanner.nextInt();
+    }
+
+    
+    
+}
