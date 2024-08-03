@@ -1,1 +1,54 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
+public class Main {
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        System.out.print("Enter a number roman convert to decimal: ");
+        String roman = scanner.nextLine();
+        int decimal = romanToDecimal(roman);
+        System.out.print("number roman converted to decimal: " + decimal);
+
+
+
+        
+    }
+
+    public static int romanToDecimal(String roman) {
+        Map<Character, Integer> romanValues = new HashMap<>();
+        romanValues.put('I', 1);
+        romanValues.put('V', 5);
+        romanValues.put('X', 10);
+        romanValues.put('L', 50);
+        romanValues.put('C', 100);
+        romanValues.put('D', 500);
+        romanValues.put('M', 1000);
+
+        int total = 0;
+        int preValue = 0;
+
+        for(int i = roman.length() - 1; i >= 0; i--) {
+            char currentChar = roman.charAt(i);
+            int currentValue = romanValues.get(currentChar);
+
+            if(currentValue < preValue) {
+                total -= currentValue;
+            } else {
+                total += currentValue;
+            }
+
+            preValue = currentValue;
+        }
+
+        return total;
+    }
+
+    
+
+    
+
+    
+    
+}
